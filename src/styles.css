@@ -1,0 +1,268 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* FindrAI — Black / Graphite / Gold theme
+   All colors defined as semantic tokens. Never hardcode.  */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-verify: var(--verify);
+  --color-alert: var(--alert);
+  --color-panel: var(--panel);
+  --color-panel-border: var(--panel-border);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --shadow-glow: 0 0 40px -8px color-mix(in oklab, var(--gold) 55%, transparent);
+  --shadow-panel: 0 20px 60px -20px oklch(0 0 0 / 0.6);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* Base — deep charcoal, not pure black */
+  --background: oklch(0.14 0.008 260);
+  --foreground: oklch(0.96 0.005 260);
+
+  --card: oklch(0.18 0.008 260);
+  --card-foreground: oklch(0.96 0.005 260);
+  --popover: oklch(0.16 0.008 260);
+  --popover-foreground: oklch(0.96 0.005 260);
+
+  /* Gold as primary — beacon signal */
+  --primary: oklch(0.78 0.14 78);
+  --primary-foreground: oklch(0.15 0.01 260);
+
+  --secondary: oklch(0.24 0.008 260);
+  --secondary-foreground: oklch(0.96 0.005 260);
+
+  --muted: oklch(0.22 0.006 260);
+  --muted-foreground: oklch(0.68 0.015 260);
+
+  --accent: oklch(0.28 0.02 78);
+  --accent-foreground: oklch(0.96 0.005 260);
+
+  --destructive: oklch(0.58 0.19 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.1);
+  --ring: oklch(0.78 0.14 78);
+
+  /* Custom brand tokens */
+  --gold: oklch(0.8 0.15 78);
+  --gold-soft: oklch(0.68 0.11 78);
+  --verify: oklch(0.78 0.13 190);
+  --alert: oklch(0.62 0.19 25);
+  --panel: oklch(1 0 0 / 0.045);
+  --panel-border: oklch(1 0 0 / 0.1);
+}
+
+.dark {
+  /* Same tokens — app is always dark */
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-image:
+      radial-gradient(
+        ellipse 80% 60% at 20% 0%,
+        color-mix(in oklab, var(--gold) 10%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 90% 100%,
+        color-mix(in oklab, var(--verify) 6%, transparent),
+        transparent 60%
+      );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  code,
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--gold) 40%, transparent);
+    color: var(--foreground);
+  }
+
+  /* Slim, theme-matched scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(1 0 0 / 0.15) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: oklch(1 0 0 / 0.12);
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: oklch(1 0 0 / 0.2);
+  }
+
+  /* Keyboard focus visible on glass */
+  :focus-visible {
+    outline: 2px solid var(--verify);
+    outline-offset: 2px;
+  }
+
+  button,
+  a,
+  .glass,
+  .glass-strong,
+  .transition-all {
+    transition: all 300ms ease-in-out;
+  }
+
+  button:active,
+  a[role="button"]:active {
+    transform: scale(0.98);
+  }
+}
+
+@utility glass {
+  background-color: var(--panel);
+  backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  border: none;
+}
+
+@utility glass-strong {
+  background-color: color-mix(in oklab, var(--panel) 180%, transparent);
+  backdrop-filter: blur(28px) saturate(160%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  border: none;
+}
+
+@utility text-gold {
+  color: var(--gold);
+}
+
+@utility bg-gold {
+  background-color: var(--gold);
+}
+
+@utility gold-gradient {
+  background-image: linear-gradient(135deg, var(--gold) 0%, var(--gold-soft) 100%);
+}
+
+@utility beacon-glow {
+  box-shadow:
+    0 0 30px -4px color-mix(in oklab, var(--gold) 60%, transparent),
+    0 0 80px -20px color-mix(in oklab, var(--gold) 40%, transparent);
+}
+
+@keyframes beacon-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@utility beacon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid var(--gold);
+  animation: beacon-pulse 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Leaflet dark tweaks — tiles are already dark (CARTO dark_all), just blend edges */
+.leaflet-container {
+  background: var(--background);
+  font-family: var(--font-sans);
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--card) !important;
+  color: var(--foreground) !important;
+  box-shadow: 0 12px 40px -12px oklch(0 0 0 / 0.7);
+}
+.leaflet-popup-close-button {
+  color: var(--muted-foreground) !important;
+}
+.leaflet-control-attribution {
+  background: color-mix(in oklab, var(--background) 80%, transparent) !important;
+  color: var(--muted-foreground) !important;
+}
+.leaflet-control-attribution a {
+  color: var(--gold) !important;
+}
+.leaflet-control-zoom a {
+  background: var(--card) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
